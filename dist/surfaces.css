@@ -1,0 +1,106 @@
+/* Shared surface treatment: blue steel, clear white and quiet engineering lines. */
+:root {
+  --surface-ice: #f2f7fb;
+  --surface-border: #d7e4ed;
+  --surface-shadow: 0 12px 36px rgba(0, 52, 86, .055);
+}
+
+body .site-header {
+  background: #fff;
+  border-bottom-color: var(--surface-border);
+  box-shadow: 0 3px 20px rgba(0, 52, 86, .035);
+}
+
+/* Keep the supplied machine photograph unobstructed. */
+body.home-concise .studio-hero { background: #f5f6f8; }
+body.home-concise .studio-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(0, 70, 112, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 70, 112, .055) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(105deg, #000, transparent 46%);
+}
+@media (min-width: 1101px) {
+  body.home-concise .studio-hero::before {
+    background: linear-gradient(90deg, #edf4fa 0%, #f2f6fa 32%, rgba(245, 246, 248, .92) 37%, transparent 46%);
+  }
+}
+
+body :is(.inner-hero, .product-hero) {
+  background-color: #f4f8fb;
+  background-image: linear-gradient(100deg, #f8fafc 25%, rgba(241, 247, 251, .7) 68%, rgba(234, 244, 252, .25)),
+    linear-gradient(rgba(0, 70, 112, .06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 70, 112, .06) 1px, transparent 1px);
+  background-size: auto, 64px 64px, 64px 64px;
+  border-bottom-color: var(--surface-border);
+}
+body .inner-hero::after {
+  border-color: rgba(0, 112, 171, .12);
+  box-shadow: 0 0 0 64px rgba(0, 112, 171, .025), 0 0 0 128px rgba(0, 112, 171, .018);
+}
+
+body :is(.equipment-showcase, .client-directory) {
+  background: radial-gradient(ellipse at 100% 0, rgba(171, 211, 239, .19), transparent 60%),
+    linear-gradient(180deg, #f8fafc, #f1f6fa);
+}
+body :is(.showcase-preview-card, .client-directory-card, .process-matrix-card) {
+  background-color: #fff;
+  border-color: var(--surface-border);
+  box-shadow: var(--surface-shadow);
+}
+body .showcase-preview-details { background: #fff; }
+body .showcase-item { background: #fff; }
+body .showcase-item[aria-pressed="true"] {
+  background: linear-gradient(100deg, #e6f2fb, #f4f9fc);
+}
+body .showcase-support { background: #edf3f7; }
+
+body :is(.industries-section, .process-path, .detail-notes) {
+  background-color: #fff;
+  background-image: radial-gradient(ellipse at 0 100%, rgba(206, 226, 242, .3), transparent 65%);
+  background-size: auto;
+}
+body .industries-grid .industry-card { border-color: var(--surface-border); }
+
+body :is(.home-company, .story-lead, .machine-story, .product-measurements, .contact-band, .machine-explorer) {
+  background-color: #004670;
+  background-image: radial-gradient(circle at 95% 120%, transparent 0 220px, rgba(151, 202, 233, .09) 221px 222px, transparent 223px 290px, rgba(151, 202, 233, .06) 291px 292px, transparent 293px),
+    linear-gradient(115deg, #003756, #004670 60%, #075781);
+}
+
+body .contact-section {
+  background-color: var(--surface-ice);
+  background-image: radial-gradient(ellipse at 0 0, rgba(173, 211, 238, .27), transparent 65%),
+    linear-gradient(120deg, #f5f9fc, #fff);
+  background-size: auto;
+}
+body .inquiry-form {
+  background: #fff;
+  border-right-color: var(--surface-border);
+  border-bottom-color: var(--surface-border);
+  border-left-color: var(--surface-border);
+  box-shadow: var(--surface-shadow);
+}
+body .client-ribbon {
+  background: linear-gradient(180deg, #fff, #f5f8fb);
+  border-color: var(--surface-border);
+}
+body .client-ribbon-logo { background: #fff; border-color: var(--surface-border); }
+body .site-footer {
+  background: radial-gradient(ellipse at 100% 100%, rgba(25, 114, 164, .32), transparent 65%), #003451;
+  border-top: 1px solid rgba(157, 208, 238, .2);
+}
+
+@media (max-width: 1100px) {
+  body.home-concise .studio-hero-inner {
+    background: linear-gradient(120deg, #edf4fa, #f5f6f8 85%);
+  }
+  body.home-concise .studio-hero::after { mask-image: linear-gradient(#000, transparent 45%); opacity: .65; }
+}
+@media (max-width: 600px) {
+  body .inner-hero::after { opacity: .55; }
+}

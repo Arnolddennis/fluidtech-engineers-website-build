@@ -1,0 +1,252 @@
+/*
+Theme Name: WAB Website
+Description: SC Site for WAB
+Author: VCS
+Author URI: https://www.wab-group.com
+Version: 1.0.0
+Text Domain: site
+*/
+
+/* Globals */
+:root {
+
+  /* Base Colors */
+  --base-color-text: var(--theme-color-black);
+  --base-color-accent: var(--theme-color-blue);
+  --base-color-light: var(--theme-color-white);
+  --base-color-background: var(--theme-color-light-grey);
+  --base-link-color: var(--theme-color-orange);
+  --base-line-color: var(--theme-color-light-blue);
+
+  /* Base Typography */
+  --base-font-family: 'Roboto';
+  --base-font-weight: 300;
+  --base-headings-color: var(--theme-color-blue);
+  --base-headings-font-family: var(--base-font-family);
+  --base-headings-font-weight: 900;
+
+  /* UI */
+  --ui-transition: all 0.2s ease-in-out;
+  --ui-icon-arrow-white: url("data:image/svg+xml,%3C%3Fxml version='1.0' %3F%3E%3Csvg height='48' viewBox='0 0 48 48' width='48' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17.17 32.92l9.17-9.17-9.17-9.17 2.83-2.83 12 12-12 12z'/%3E%3Cpath d='M0-.25h48v48h-48z' fill='none'/%3E%3C/svg%3E");
+
+  --ui-button--padding: 10rem 18rem;
+  --ui-button--text: var(--base-link-color);
+  --ui-button--background: none;
+  --ui-button--border: 3rem solid var(--base-link-color);
+  --ui-button--hover-text: var(--theme-color-white);
+  --ui-button--hover-background: var(--base-link-color);
+  --ui-button--hover-border: 3rem solid var(--base-link-color);
+
+  --ui-button--secondary--padding: 10rem 10rem;
+  --ui-button--secondary--text: var(--base-link-color);
+  --ui-button--secondary--background: transparent;
+  --ui-button--secondary--border: 3rem solid var(--base-link-color);
+  --ui-button--secondary--hover-text: #fff;
+  --ui-button--secondary--hover-background: var(--base-link-color);
+  --ui-button--secondary--hover-border: var(--ui-button--secondary--border);
+
+  --ui-input--border: 1rem solid var(--base-color-text);
+  --ui-input--border-radius: 0;
+  --ui-input--padding: 15rem 15rem;
+
+  --ui-tooltip--width: 50rem;
+  --ui-tooltip--background: var(--base-color-accent);
+  --ui-tooltip--color: var(--base-color-light);
+  --ui-tooltip--font-size: var(--base-font-size-small);
+
+  /* Theme Colors */
+  --theme-color-blue: #004670;
+  --theme-color-orange: #F29222;
+  --theme-color-middle-blue: #0190E6;
+  --theme-color-light-blue: #99CBE8;
+  --theme-color-light-grey: #EEEEEE;
+  --theme-color-white: #fff;
+  --theme-color-black: #000;
+
+  --theme-box-shadow: 0px 6rem 13rem -2rem rgba(0, 0, 0, 0.24);
+
+  /* Theme Icons */
+  --theme-ui-icon-arrow-orange: url("data:image/svg+xml,%3C%3Fxml version='1.0' %3F%3E%3Csvg height='48' viewBox='0 0 48 48' width='48' fill='%23F29222' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17.17 32.92l9.17-9.17-9.17-9.17 2.83-2.83 12 12-12 12z'/%3E%3Cpath d='M0-.25h48v48h-48z' fill='none'/%3E%3C/svg%3E");
+  --theme-ui-icon-select-indicator: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14.549' height='7.723' viewBox='0 0 14.549 7.723'%3E%3Cg id='Komponente_204_1' data-name='Komponente 204 %E2%80%93 1' transform='translate(0.707 0.707)'%3E%3Cg id='Gruppe_5849' data-name='Gruppe 5849' transform='translate(13.135) rotate(90)'%3E%3Cpath id='Pfad_2805' data-name='Pfad 2805' d='M0 0 6.567 6.516 13.135 0' transform='translate(0 13.135) rotate(-90)' fill='none' stroke='%23004670' stroke-linecap='round' stroke-linejoin='round' stroke-width='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+  /* Elements */
+  --module-header-height: 140rem;
+}
+
+/* Mobile */
+@media (max-width: 599px) {
+  :root {
+    /* Units */
+    --base-root-font-size: calc(calc(100 / 370) * 1vw);
+    --base-space: 22rem;
+
+    /* Typography */
+    --base-line-height: 1.43;
+    --base-font-size: 14rem;
+    --base-font-size-small: 10rem;
+    --base-font-size-large: 16rem;
+    --base-headings-line-height: 1.375;
+    --base-headings-font-size-1: 30rem;
+    --base-headings-font-size-2: 20rem;
+    --base-headings-font-size-3: 18rem;
+    --base-headings-font-size-4: 18rem;
+
+    /* Layout */
+    --base-layout-width: 100%;
+    --base-content-width: 326rem;
+    --base-content-width-wide: 326rem;
+    --base-offset: 22rem;
+    --base-offset-vertical: 56rem;
+    /*--base-gap: 30rem;*/
+    --base-gap: 15rem;
+
+    /* Elements */
+    --module-header-height: 54rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 600px) and (max-width: 999px) {
+  :root {
+    /* Units */
+    --base-root-font-size: calc(calc(100 / 990) * 1vw);
+    --base-space: 30rem;
+
+    /* Typography */
+    --base-line-height: 1.5;
+    --base-font-size: 16rem;
+    --base-font-size-small: 13rem;
+    --base-font-size-large: 24rem;
+    --base-headings-line-height: 1.18;
+    --base-headings-font-size-1: 40rem;
+    --base-headings-font-size-2: 28rem;
+    --base-headings-font-size-3: 23rem;
+    --base-headings-font-size-4: 23rem;
+
+    /* Layout */
+    --base-layout-width: 100%;
+    --base-content-width: 720rem;
+    --base-content-width-wide: 860rem;
+    --base-offset: 38rem;
+    --base-offset-vertical: 110rem;
+    --base-gap: 15rem;
+
+    /* Elements */
+    --module-header-height: 80rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1000px) {
+  :root {
+    /* Units */
+    --base-root-font-size: calc(calc(100 / 1920) * 1vw);
+    --base-space: 20rem;
+
+    /* Typography */
+    --base-line-height: 1.37;
+    --base-font-size: 18rem;
+    --base-font-size-small: 14rem;
+    --base-font-size-large: 22rem;
+    --base-headings-line-height: 1.18;
+    --base-headings-font-size-1: 55rem;
+    --base-headings-font-size-2: 35rem;
+    --base-headings-font-size-3: 26rem;
+    --base-headings-font-size-4: 20rem;
+
+    /* Layout */
+    --base-layout-width: 100%;
+    --base-content-width: 760rem;
+    --base-content-width-wide: 1130rem;
+    /* --base-offset: calc(1.5 * var(--base-space)); should be comcrete value here > desktop design */
+    /* --base-offset-vertical: calc(5 * var(--base-space)); should be comcrete value here > desktop design */
+    --base-offset: 40rem;
+    --base-offset-vertical: 130rem;
+    --base-gap: var(--base-space);
+  }
+}
+
+/* Widescreen */
+@media (min-width: 1920px) {
+  :root {
+    --base-root-font-size: 1px;
+  }
+}
+
+/* roboto-300 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url("wp-content_themes_wab_fonts_roboto-v30-latin-300.woff2") format('woff2'),
+    /* Chrome 36+, Opera 23+, Firefox 39+ */
+    url("wp-content_themes_wab_fonts_roboto-v30-latin-300.woff") format('woff');
+  /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* roboto-300italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 300;
+  src: url("wp-content_themes_wab_fonts_roboto-v30-latin-300italic.woff2") format('woff2'),
+    /* Chrome 36+, Opera 23+, Firefox 39+ */
+    url("wp-content_themes_wab_fonts_roboto-v30-latin-300italic.woff") format('woff');
+  /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* roboto-700 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url("wp-content_themes_wab_fonts_roboto-v30-latin-700.woff2") format('woff2'),
+    /* Chrome 36+, Opera 23+, Firefox 39+ */
+    url("wp-content_themes_wab_fonts_roboto-v30-latin-700.woff") format('woff');
+  /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* roboto-700italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 700;
+  src: url("wp-content_themes_wab_fonts_roboto-v30-latin-700italic.woff2") format('woff2'),
+    /* Chrome 36+, Opera 23+, Firefox 39+ */
+    url("wp-content_themes_wab_fonts_roboto-v30-latin-700italic.woff") format('woff');
+  /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* roboto-900 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 900;
+  src: url("wp-content_themes_wab_fonts_roboto-v30-latin-900.woff2") format('woff2'),
+    /* Chrome 36+, Opera 23+, Firefox 39+ */
+    url("wp-content_themes_wab_fonts_roboto-v30-latin-900.woff") format('woff');
+  /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* roboto-900italic - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 900;
+  src: url("wp-content_themes_wab_fonts_roboto-v30-latin-900italic.woff2") format('woff2'),
+    /* Chrome 36+, Opera 23+, Firefox 39+ */
+    url("wp-content_themes_wab_fonts_roboto-v30-latin-900italic.woff") format('woff');
+  /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}

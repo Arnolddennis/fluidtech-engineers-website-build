@@ -1,0 +1,1 @@
+@charset "UTF-8";.products-taxonomy-block{width:var(--base-content-width-wide);max-width:calc(100% - 2 * var(--base-offset));margin-bottom:var(--base-offset-vertical);}.products-taxonomy-block__list{display:-ms-grid;display:grid;grid-template-columns:1fr 1fr 1fr;grid-gap:var(--base-gap);}@media (max-width: 781px){.products-taxonomy-block__list{grid-template-columns:1fr 1fr;}}

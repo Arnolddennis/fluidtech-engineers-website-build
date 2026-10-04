@@ -1,0 +1,1 @@
+@charset "UTF-8";@media (min-width: 600px){.module-numbers{display:-ms-grid;display:grid;grid-auto-columns:minmax(0,1fr);grid-auto-flow:column;gap:var(--base-gap);}}.module-numbers__item .number,.module-numbers__item .prefix,.module-numbers__item .suffix{font-size:var(--base-font-size-large);}

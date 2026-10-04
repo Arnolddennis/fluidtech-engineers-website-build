@@ -1,0 +1,1 @@
+@charset "UTF-8";.module-table.fixed-first-column th:first-child,.module-table.fixed-first-column td:first-child{position:-webkit-sticky;position:sticky;left:0;z-index:10;}
