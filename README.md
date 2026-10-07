@@ -30,7 +30,7 @@ Contact phone numbers open WhatsApp chats using the matching international phone
 
 The concise homepage retains the hero, equipment browser, six industry highlights, company/service summary, quick enquiry and client strip. Detailed content remains on the linked inner pages. Home-only spacing is in `dist/home-concise.css`.
 
-The homepage anniversary reads **34 years of manufacturing excellence, since 1992**. The latest supplied Basket Mill and Three Roll Mill images are shared by their catalogue entries, product pages, galleries and related-product cards. Three Roll Mill specifications cover models 75, 93, 150 and 300.
+The homepage anniversary reads **33 years of manufacturing excellence, since 1993**. The latest supplied Basket Mill and Three Roll Mill images are shared by their catalogue entries, product pages, galleries and related-product cards. Three Roll Mill specifications cover models 75, 93, 150 and 300.
 
 Background gradients and engineering patterns are defined in `dist/surfaces.css`. Homepage equipment images use a light neutral background and image blending to avoid contrasting side bands.
 
