@@ -47,9 +47,3 @@ Translations are local, with no third-party translation service or API key. Edit
 `dist/i18n.js` translates page text, titles, descriptions, accessible labels, placeholders and dynamically rendered equipment. User-entered form values are never translated or overwritten. The existing contact form still prepares an email draft for the visitor to send.
 
 Run `python3 scripts/check-translations.py` to check translation coverage and selector presence across the site. Keep `scripts/translation-preserved.json` limited to proper names and identifiers that intentionally remain unchanged. Browser checks cover dynamic product changes, translated search, comparison, URL persistence, English restoration, validation messages, unchanged enquiry input and responsive navigation.
-
-## Typography
-
-`dist/brand-theme.css` owns the global typography tokens. Roboto is an implementation approximation inspired by the reference; WAB Group’s main font has not been verified. The self-hosted Roboto variable WOFF2 files in `dist/assets/fonts/roboto/` provide real weights 100–900, including the required Regular 400, Medium 500, Bold 700 and Black 900, with Latin and extended Latin coverage. Source: Google Fonts Roboto v51; the accompanying OFL license is included. Fallbacks are Arial and sans-serif.
-
-Body copy uses 16px/1.6 at 400. Main headings use 900, uppercase and 0.025em tracking with responsive sizes; secondary headings use 700. Buttons and navigation use 500, uppercase and 0.08em tracking. Heading typography is centralized in the existing brand theme; component styles retain layout, spacing, colours and compact labels.

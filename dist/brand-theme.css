@@ -1,34 +1,13 @@
-/* Roboto approximates the reference typography; the WAB main font is not verified.
-   Self-hosted variable fonts provide genuine 400, 500, 700 and 900 weights. */
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 100 900;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('/assets/fonts/roboto/roboto-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 100 900;
-  font-stretch: 100%;
-  font-display: swap;
-  src: url('/assets/fonts/roboto/roboto-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 /* Reference visual language only. Layout and component behaviour stay in the
    existing shared stylesheets. Fonts are served locally. */
+@font-face{font-family:FluidtechRoboto;src:url('/reference/wp-content_themes_wab_fonts_roboto-v30-latin-300.woff2') format('woff2');font-style:normal;font-weight:300 500;font-display:swap}
+@font-face{font-family:FluidtechRoboto;src:url('/reference/wp-content_themes_wab_fonts_roboto-v30-latin-700.woff2') format('woff2');font-style:normal;font-weight:600 800;font-display:swap}
+@font-face{font-family:FluidtechRoboto;src:url('/reference/wp-content_themes_wab_fonts_roboto-v30-latin-900.woff2') format('woff2');font-style:normal;font-weight:900;font-display:swap}
+@font-face{font-family:FluidtechRoboto;src:url('/reference/wp-content_themes_wab_fonts_roboto-v30-latin-300italic.woff2') format('woff2');font-style:italic;font-weight:300 500;font-display:swap}
 :root{
-  --font-family-primary:"Roboto",Arial,sans-serif;
-  --font-sans:var(--font-family-primary);
-  --font-body:var(--font-family-primary);
-  --font-mono:var(--font-family-primary);
-  --type-body-size:16px;--type-body-leading:1.6;
-  --type-heading-leading:1.15;--type-heading-tracking:.025em;
-  --type-h1:clamp(2rem,5vw,4rem);--type-h2:clamp(1.5rem,3.5vw,2.75rem);--type-h3:clamp(1.25rem,2.5vw,1.75rem);
-  --type-control-weight:500;--type-control-tracking:.08em;
+  --font-sans:FluidtechRoboto,Arial,sans-serif;
+  --font-body:FluidtechRoboto,Arial,sans-serif;
+  --font-mono:FluidtechRoboto,Arial,sans-serif;
   --paper:#fff;--surface:#fff;--surface-subtle:#eee;
   --ink:#004670;--ink-secondary:#242424;--muted:#424b51;
   --deep:#004670;--deep2:#003d62;--deep-surface:#07547e;
@@ -36,40 +15,28 @@
   --accent-cyan:#99cbe8;--brand-orange:#f29222;--brand-bright:#0190e6;
   --line:#bcd9ea;--line-subtle:#e0e9ee;--line-dark:#367797;
 }
-body{font-family:var(--font-family-primary);font-size:var(--type-body-size);font-weight:400;line-height:var(--type-body-leading);color:#000;background:#fff}
-body :is(h1,h2,h3,h4){color:var(--deep)}
-body :is(p,li,dd){font-weight:400}
+body{font-family:var(--font-body);font-weight:300;color:#000;background:#fff}
+body :is(h1,h2,h3,h4){font-family:var(--font-sans);font-weight:900;letter-spacing:.025em;color:var(--deep)}
+body :is(h1,h2){text-transform:uppercase}
+body :is(p,li,dd){font-weight:300}
 body strong,body b{font-weight:700}
-body :is(h1,h2,h3,h4,h5,h6){font-family:var(--font-family-primary);overflow-wrap:anywhere;hyphens:auto}
-body :is(h1,h2){font-weight:900;text-transform:uppercase;letter-spacing:var(--type-heading-tracking);line-height:var(--type-heading-leading)}
-body h1{font-size:var(--type-h1)}
-body h2{font-size:var(--type-h2)}
-body :is(h3,h4,h5,h6){font-weight:700;line-height:1.3;letter-spacing:normal}
-body h3{font-size:var(--type-h3)}
-body h4{font-size:1.125rem}
-body :is(h5,h6){font-size:1rem}
-body :is(button,.button,nav a){font-weight:var(--type-control-weight);text-transform:uppercase;letter-spacing:var(--type-control-tracking)}
-body button :is(strong,b){font-weight:var(--type-control-weight);letter-spacing:inherit}
-/* Main reading text uses the body scale; eyebrow labels and form hints stay compact. */
-body :is(.studio-hero-desc,.inner-intro,.section-intro,.about-copy>p,.product-hero-copy>p:not(.studio-eyebrow),.showcase-preview-details>p,.home-company p:not(.studio-eyebrow),.contact-copy>p:not(.kicker),.card-body>p,.page-feature-list p,.detail-notes-grid>div>p:not(.studio-eyebrow)){font-size:var(--type-body-size);line-height:var(--type-body-leading)}
-
 body :is(button,input,textarea,select){font-family:var(--font-body)}
-body .brand-name,body .brand-name small,body .brand-name .brand-legal{font-family:var(--font-family-primary);color:var(--deep);font-weight:900}
+body .brand-name,body .brand-name small,body .brand-name .brand-legal{font-family:var(--font-sans);color:var(--deep);font-weight:900}
 body .brand-name{letter-spacing:.015em}
 body .brand-name small{letter-spacing:.065em}
 body .brand-name .brand-legal{font-weight:700;letter-spacing:.15em}
 .site-header{background:rgba(255,255,255,.97);border-bottom-color:var(--accent-cyan)}
-.site-nav{font-weight:var(--type-control-weight);color:var(--deep)}
+.site-nav{font-weight:700;color:var(--deep)}
 .site-nav a[aria-current=page]{text-decoration-color:var(--brand-orange);text-underline-offset:7px}
 .dropdown{border-color:var(--accent-cyan);border-top:3px solid var(--brand-orange);box-shadow:0 14px 30px #00467012}
 .dropdown a:hover{background:var(--accent-light);color:var(--deep)}
-body :is(.button,.nav-contact){font-family:var(--font-family-primary);font-weight:var(--type-control-weight);text-transform:uppercase;letter-spacing:var(--type-control-tracking);border:3px solid var(--brand-orange);border-radius:32px;background:transparent;color:var(--deep);box-shadow:none}
+body :is(.button,.nav-contact){font-family:var(--font-body);font-weight:700;text-transform:uppercase;letter-spacing:.085em;border:3px solid var(--brand-orange);border-radius:32px;background:transparent;color:var(--deep);box-shadow:none}
 body .button{font-size:12px;padding:12px 22px}
 body .nav-contact{padding:10px 17px;font-size:11px}
 body :is(.button,.nav-contact):hover{background:var(--brand-orange);border-color:var(--brand-orange);color:var(--deep);box-shadow:none}
 body .site-nav .nav-contact[aria-current=page]{color:var(--deep);text-decoration-color:var(--deep)}
-body :is(.studio-eyebrow,.kicker,.product-type){font-family:var(--font-family-primary);font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#006fae}
-body :is(.studio-plain-link,.product-link,.text-link,.story-select){border-bottom-color:var(--brand-orange);color:var(--deep);font-weight:var(--type-control-weight)}
+body :is(.studio-eyebrow,.kicker,.product-type){font-family:var(--font-body);font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#006fae}
+body :is(.studio-plain-link,.product-link,.text-link,.story-select){border-bottom-color:var(--brand-orange);color:var(--deep);font-weight:700}
 body :is(.studio-plain-link,.product-link,.text-link):hover{color:#006fae}
 body :is(a,button,input,textarea,select):focus-visible{outline:3px solid var(--brand-orange);outline-offset:4px}
 /* The light textured ground is the supplied reference's subtle noise tile. */
@@ -77,6 +44,7 @@ body :is(.inner-hero,.product-hero,.process-path,.industries-section,.contact-se
 .inner-hero::after{border-color:#99cbe860}
 .studio-hero{background:#eee}
 .studio-hero:before{background:linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.9) 42%,rgba(255,255,255,.2) 75%,transparent 100%)}
+body .studio-hero h1{font-size:clamp(3rem,4.8vw,5rem);font-weight:900;letter-spacing:.025em;line-height:1.04}
 .studio-hero h1 em{font-style:normal;color:var(--deep)}
 .studio-eyebrow-chip{color:var(--deep);font-weight:700;background:#fff;border-color:var(--accent-cyan);box-shadow:none}
 .chip-pulse{background:var(--brand-orange);box-shadow:0 0 0 3px #f2922225}
@@ -98,32 +66,39 @@ body .story-select{color:#fff}
 .reticle-badge{border-color:var(--brand-orange)}
 .reticle-pulse{background:var(--brand-orange);box-shadow:0 0 6px #f2922260}
 .showcase-pill,.trial-image-badge{background:#004670ed;border-radius:24px;font-weight:700}
-body :is(.showcase-filters button,.page-family-nav a,.filter,.client-ribbon-toggle){border-radius:28px;font-weight:var(--type-control-weight);color:var(--deep);border-color:var(--accent-cyan);background:#fff}
+body :is(.showcase-filters button,.page-family-nav a,.filter,.client-ribbon-toggle){border-radius:28px;font-weight:700;color:var(--deep);border-color:var(--accent-cyan);background:#fff}
 body :is(.showcase-filters button[aria-pressed=true],.page-family-nav a[aria-current],.filter[aria-pressed=true]){color:#fff;border-color:var(--deep);background:var(--deep)}
 body :is(.showcase-filters button,.page-family-nav a,.client-ribbon-toggle):hover{border-color:var(--brand-orange)}
 .showcase-item[aria-pressed=true]{border-left-color:var(--brand-orange);background:var(--accent-light)}
-.showcase-item-text strong{font-weight:var(--type-control-weight);letter-spacing:var(--type-control-tracking)}
+.showcase-item-text strong{font-weight:900;letter-spacing:.025em}
 .showcase-preview-card,.process-matrix-card{box-shadow:none}
 .process-matrix-card,.page-industry-card,.inquiry-form{border-top:3px solid var(--brand-orange)}
 .matrix-card-index,.page-index{font-weight:700;color:var(--deep)}
 .matrix-card-tag,.matrix-tags span{border-radius:14px;font-weight:700;background:var(--accent-light);color:var(--deep)}
 .showcase-action{border-radius:24px;color:var(--deep)}
+body :is(.card-body h3,.process-matrix-card h3,.industries-grid .industry-card h3,.inner-page h3){letter-spacing:.025em}
+body :is(.inner-hero h1,.inner-page h2,.product-detail .product-hero h1,.client-ribbon h2){letter-spacing:.025em}
+body .inner-page .product-hero h1{font-size:clamp(38px,4.3vw,62px)}
 body .footer-brand :is(.brand-name,.brand-name small,.brand-legal){color:#fff}
 .site-footer a:hover{color:var(--brand-orange)}
 .client-ribbon-logo{border-color:var(--line-subtle)}
 .client-ribbon-logo>span{color:var(--deep);font-weight:700}
 .client-ribbon-toggle{letter-spacing:.04em}
-body .compact-inquiry :is(input,textarea){border:0;border-bottom:1px solid var(--deep);border-radius:0;background:#fff;padding-inline:0;font-weight:400}
+body .compact-inquiry :is(input,textarea){border:0;border-bottom:1px solid var(--deep);border-radius:0;background:#fff;padding-inline:0;font-weight:300}
 body .compact-inquiry :is(input,textarea):focus{border-color:var(--brand-bright);box-shadow:0 2px 0 var(--brand-bright);outline:0}
 .form-grid label{color:var(--deep)}
-body .compact-form-footer .button{background:transparent;color:var(--deep);font-size:11px;letter-spacing:var(--type-control-tracking);padding:10px 13px}
+body .compact-form-footer .button{background:transparent;color:var(--deep);font-size:11px;letter-spacing:.05em;padding:10px 13px}
+body .compact-inquiry .form-heading h3{letter-spacing:.015em}
 @media(max-width:820px){
   .site-nav{background:#fff}
+  body .studio-hero h1{font-size:clamp(2.8rem,7.3vw,4.4rem)}
 }
 @media(max-width:570px){
+  body .studio-hero h1{font-size:clamp(2rem,8.5vw,3rem)}
+  body .inner-page .product-hero h1,body .inner-hero h1{font-size:clamp(32px,9vw,42px)}
   body .brand-name{font-size:24px}
   body .brand-name small{font-size:10px}
-  body .compact-form-footer .button{letter-spacing:var(--type-control-tracking);padding-inline:10px;font-size:10px}
+  body .compact-form-footer .button{letter-spacing:.02em;padding-inline:10px;font-size:10px}
 }
 
 body .compact-form-footer .button:hover{background:var(--brand-orange);color:var(--deep)}
