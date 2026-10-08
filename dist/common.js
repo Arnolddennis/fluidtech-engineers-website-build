@@ -1,4 +1,6 @@
 (() => {
+  const t = text => window.FluidtechI18n?.t(text) || text;
+  const enquiryText = subject => t("I'm interested in") + " " + t(subject) + ". ";
   document.querySelectorAll('.client-ribbon-toggle').forEach(button => {
     button.addEventListener('click', () => {
       const ribbon = button.closest('.client-ribbon');
@@ -71,17 +73,23 @@
     const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
     const digits = value.replace(/\D/g, '');
     const phone = /^\+?[\d\s().-]+$/.test(value) && digits.length >= 7 && digits.length <= 15;
-    contact.setCustomValidity(value && !email && !phone ? 'Please enter an email address or a phone number.' : '');
+    contact.setCustomValidity(value && !email && !phone ? t('Please enter an email address or a phone number.') : '');
     document.getElementById('contact-hint').textContent = email ? 'Email address' : phone ? 'Phone number' : 'Email or phone number';
   };
+  document.addEventListener('fluidtech:languagechange', () => {
+    updateContact();
+    const name = form?.elements.namedItem('name');
+    if (name?.validity.customError) name.setCustomValidity(t('Please enter your name.'));
+    if (reason?.validity.customError) reason.setCustomValidity(t('Please tell us the reason for your enquiry.'));
+  });
   reason?.addEventListener('input', updateReason);
   contact?.addEventListener('input', updateContact);
   document.addEventListener('click', event => {
     const control = event.target.closest('[data-enquire]');
     if (!control) return;
     event.preventDefault();
-    if (!reason) { location.href = '/contact-us/?product=' + encodeURIComponent(control.dataset.enquire); return; }
-    if (!reason.value.trim()) reason.value = "I'm interested in " + control.dataset.enquire + '. ';
+    if (!reason) { location.href = '/contact-us/?product=' + encodeURIComponent(control.dataset.enquire) + '&lang=' + (window.FluidtechI18n?.language || 'en'); return; }
+    if (!reason.value.trim()) reason.value = enquiryText(control.dataset.enquire);
     updateReason();
     form.scrollIntoView({behavior: reduced ? 'instant' : 'smooth', block: 'center'});
     reason.focus({preventScroll:true});
@@ -91,8 +99,8 @@
     const subject = params.get('product') || params.get('service');
     const industry = params.get('industry');
     if (!reason.value.trim()) {
-      if (subject) reason.value = "I'm interested in " + subject.slice(0,250) + '. ';
-      else if (industry) reason.value = 'Enquiry for ' + industry.slice(0,250) + ': ';
+      if (subject) reason.value = enquiryText(subject.slice(0,250));
+      else if (industry) reason.value = t('Enquiry for') + ' ' + t(industry.slice(0,250)) + ': ';
     }
     updateReason();
     updateContact();
@@ -100,8 +108,8 @@
       event.preventDefault();
       updateContact();
       const name = form.elements.namedItem('name');
-      name.setCustomValidity(name.value.trim() ? '' : 'Please enter your name.');
-      reason.setCustomValidity(reason.value.trim() ? '' : 'Please tell us the reason for your enquiry.');
+      name.setCustomValidity(name.value.trim() ? '' : t('Please enter your name.'));
+      reason.setCustomValidity(reason.value.trim() ? '' : t('Please tell us the reason for your enquiry.'));
       if (!form.reportValidity()) return;
       const body = ['Name: ' + name.value.trim(), 'Contact: ' + contact.value.trim(), '', 'Reason for enquiry:', reason.value.trim()].join('\n');
       location.href = 'mailto:fluidtechindia@gmail.com?subject=' + encodeURIComponent('Fluidtech enquiry — ' + name.value.trim()) + '&body=' + encodeURIComponent(body);

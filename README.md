@@ -37,3 +37,13 @@ Background gradients and engineering patterns are defined in `dist/surfaces.css`
 ## Hosting
 
 The deployable website is the complete `dist/` folder. There is no build step or package installation. Serve it at the domain root because links and assets use root-relative paths. `.openai/hosting.json` records the existing Sites hosting configuration; it contains no credentials. Pushing this repository does not by itself deploy the website or enable GitHub Pages.
+
+## Languages
+
+English is the primary language and the fallback without JavaScript. The header selector offers English, Deutsch, Español and Français on every page. A visitor's choice is remembered in local storage and carried in internal links as `?lang=de`, `?lang=es` or `?lang=fr`. An explicit URL language takes priority over the saved preference. Browser language does not change the English default.
+
+Translations are local, with no third-party translation service or API key. Edit `dist/locales/de.json`, `es.json` and `fr.json`; keys are the original English text. Then run `node scripts/build-translations.mjs` to rebuild `dist/translations.js`. New or changed English copy needs a corresponding entry in all three dictionaries; unknown text safely falls back to English. Keep model identifiers, measurements, client names, contact details and the legal company name unchanged. Text embedded in photographs and logos remains part of the original image.
+
+`dist/i18n.js` translates page text, titles, descriptions, accessible labels, placeholders and dynamically rendered equipment. User-entered form values are never translated or overwritten. The existing contact form still prepares an email draft for the visitor to send.
+
+Run `python3 scripts/check-translations.py` to check translation coverage and selector presence across the site. Keep `scripts/translation-preserved.json` limited to proper names and identifiers that intentionally remain unchanged. Browser checks cover dynamic product changes, translated search, comparison, URL persistence, English restoration, validation messages, unchanged enquiry input and responsive navigation.
