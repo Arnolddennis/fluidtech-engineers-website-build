@@ -5,7 +5,6 @@
 .home-concise .studio-hero-actions{margin-bottom:0}
 .home-concise .studio-hero-desc{max-width:38ch;margin-bottom:26px}
 .home-concise .showcase-heading{margin-bottom:24px}
-.home-concise .showcase-heading h2,.home-concise .section-heading h2,.home-concise .home-company h2{font-size:clamp(30px,3vw,42px);line-height:1.1}
 .home-concise .studio-eyebrow,.home-concise .kicker{margin-bottom:14px}
 .home-concise .showcase-filters{margin-bottom:18px;padding-bottom:14px}
 .home-concise .showcase-visual{aspect-ratio:1.8;background:#f5f6f8;isolation:isolate}
@@ -42,7 +41,6 @@
  .home-concise .studio-hero-photo img{max-height:220px}
  .home-concise .industries-grid .industry-card{gap:9px;min-height:82px}
  .home-concise .industries-grid .industry-card img{width:36px;height:36px}
- .home-concise .industries-grid .industry-card h3{font-size:13px;line-height:1.3}
  .home-concise .showcase-item-text strong{font-size:16px}
  .home-concise .showcase-item{padding-block:13px}
  .home-concise .showcase-tools-card{padding:16px}
@@ -59,14 +57,13 @@
  .home-concise .studio-hero-photo img{height:auto}
  .home-concise .studio-hero:before{background:linear-gradient(90deg,#f5f6f8 0%,#f5f6f8 36%,transparent 45%)}
  .home-concise .studio-hero-copy{width:40%}
- body.home-concise .studio-hero h1{font-size:clamp(40px,4vw,60px)}
 }
 @media(max-width:1100px){
  .home-concise .studio-hero-photo img{max-height:none;height:auto}
 }
 
 /* Anniversary typography follows the site's existing identity. */
-.hero-anniversary{display:flex;align-items:center;gap:18px;margin-top:26px;padding-top:20px;border-top:1px solid #cedce5;width:fit-content;max-width:100%;font-family:var(--font-sans);color:var(--deep)}
+.hero-anniversary{display:flex;align-items:center;gap:18px;margin-top:26px;padding-top:20px;border-top:1px solid #cedce5;width:fit-content;max-width:100%;font-family:var(--font-family-primary);color:var(--deep)}
 .anniversary-number{font-size:64px;font-weight:800;line-height:1;letter-spacing:-.05em}
 .anniversary-copy{display:flex;flex-direction:column;gap:3px;border-left:2px solid var(--brand-orange,#f29222);padding-left:16px}
 .anniversary-copy>span{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}

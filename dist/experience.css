@@ -18,7 +18,6 @@
 .product-detail .product-hero-grid{min-height:0;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);align-items:center;gap:clamp(30px,4vw,62px)}
 .product-detail .product-hero-copy{align-self:center;justify-content:flex-start;padding:26px 0 36px;min-width:0}
 .product-detail .product-hero .breadcrumbs{margin-bottom:clamp(40px,6vw,85px)}
-.product-detail .product-hero h1{font-size:clamp(4rem,5.8vw,6.7rem);line-height:.94;overflow-wrap:normal}
 .product-detail .product-hero-image{align-self:center;min-width:0;padding:28px 0 24px}
 .product-detail .product-hero-image img{display:block;width:100%;height:auto;max-height:610px;aspect-ratio:4/3;object-fit:contain}
 .product-hero-actions{display:flex;align-items:flex-start;flex-wrap:wrap;gap:22px 24px}
@@ -27,12 +26,12 @@
 .machine-explorer{background:#102d3e;color:#fff}
 .explorer-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,400px);align-items:end;gap:20px 60px;margin-bottom:45px}
 .explorer-heading .folio-kicker{grid-column:1/-1;color:#95cce9;margin:0}
-.explorer-heading h2{font-size:clamp(4rem,6vw,7rem);line-height:.9;margin:0}
+.explorer-heading h2{margin:0}
 .explorer-heading>p:last-child{color:#bdd2db;max-width:35ch;line-height:1.55;margin:0}
 .explorer-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(330px,.65fr);align-items:stretch;background:#17394c;border:1px solid #427084}
 .explorer-image{position:relative;min-width:0;aspect-ratio:4/3;background:#dbe4e7;overflow:hidden}
 .explorer-image>img{display:block;width:100%;height:100%;object-fit:cover}
-.explorer-point{position:absolute;display:grid;place-items:center;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;border:2px solid #fff;background:#0b5989;color:#fff;font:600 12px PlexMono,monospace;box-shadow:0 0 0 7px #07344e55;cursor:pointer;transition:background .25s,box-shadow .25s,scale .25s}
+.explorer-point{position:absolute;display:grid;place-items:center;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;border:2px solid #fff;background:#0b5989;color:#fff;font:600 12px var(--font-family-primary);box-shadow:0 0 0 7px #07344e55;cursor:pointer;transition:background .25s,box-shadow .25s,scale .25s}
 .explorer-point[data-explorer-target="chamber"]{left:62%;top:40%}
 .explorer-point[data-explorer-target="drive"]{left:37%;top:49%}
 .explorer-point[data-explorer-target="controls"]{left:27%;top:21%}
@@ -42,12 +41,12 @@
 .explorer-content{display:flex;flex-direction:column;min-width:0;padding:26px clamp(22px,3vw,44px) 34px}
 .explorer-selectors{border-top:1px solid #608295}
 .explorer-choice{display:grid;grid-template-columns:36px 1fr 22px;align-items:center;gap:8px;width:100%;padding:20px 0;border:0;border-bottom:1px solid #608295;color:#d1e4e9;background:transparent;text-align:left;cursor:pointer;transition:color .2s,padding-left .2s}
-.explorer-choice>span:first-child,.explorer-info-number{font:400 11px PlexMono,monospace;color:#93cbe8}
+.explorer-choice>span:first-child,.explorer-info-number{font:400 11px var(--font-family-primary);color:#93cbe8}
 .explorer-choice strong{font-size:18px;font-weight:600}
 .explorer-choice:hover,.explorer-choice.active{color:#fff;padding-left:7px}
 .explorer-choice.active strong{color:#9cdbfb}
 .explorer-info{min-height:194px;padding:35px 0 18px;animation:info-enter .35s cubic-bezier(.2,.75,.2,1)}
-.explorer-info h3{font-family:BarlowCondensed,'Arial Narrow',sans-serif;font-size:clamp(2.7rem,3.6vw,4.2rem);line-height:.9;margin:12px 0 15px;text-transform:uppercase}
+.explorer-info h3{margin:12px 0 15px;}
 .explorer-info p{color:#c5d8df;line-height:1.55;margin:0;max-width:37ch}
 .explorer-content>.text-link{margin-top:auto;align-self:flex-start;border-color:#88c8e9;color:#fff}
 .machine-dialog{border:0;padding:16px;background:#102d3e;color:#fff;max-width:min(95vw,1250px);max-height:95vh}
@@ -58,12 +57,12 @@
 /* Finder and comparison pages use the same engineering catalogue rhythm. */
 .tool-hero{background:#102d3e;color:#fff;padding:clamp(75px,7vw,100px) 0 clamp(65px,6vw,85px)}
 .tool-hero .folio-kicker{color:#93cbe8;margin:0 0 42px}
-.tool-hero h1{font:700 clamp(4.8rem,7.8vw,8.4rem)/.86 BarlowCondensed,'Arial Narrow',sans-serif;text-transform:uppercase;max-width:1000px;margin:0 0 28px;letter-spacing:-.025em}
+.tool-hero h1{max-width:1000px;margin:0 0 28px;}
 .tool-hero p:last-child{font-size:17px;line-height:1.5;color:#c7dae0;max-width:52ch;margin:0}
 .finder-section{background:var(--paper)}
 .finder-grid{display:grid;grid-template-columns:minmax(310px,.8fr) minmax(0,1.2fr);gap:clamp(45px,7vw,110px)}
 .finder-controls{background:#fff;padding:clamp(27px,4vw,56px);align-self:start;border:1px solid var(--line)}
-.finder-step{font:400 11px PlexMono,monospace;letter-spacing:.08em;color:var(--accent-dark);margin:0 0 22px}
+.finder-step{font:400 11px var(--font-family-primary);letter-spacing:.08em;color:var(--accent-dark);margin:0 0 22px}
 .finder-controls fieldset{border:0;padding:0;margin:0 0 48px}
 .finder-controls legend{font-size:22px;font-weight:600;letter-spacing:-.04em;margin:0 0 22px}
 .finder-options{display:grid;gap:9px}
@@ -77,22 +76,22 @@
 .finder-field input,.finder-field select,.comparison-pickers select,.enquiry-form select{display:block;width:100%;margin-top:9px;padding:14px;border:1px solid #b7c9cf;background:#fff;color:var(--ink);font:inherit;border-radius:0}
 .finder-footnote{font-size:13px;line-height:1.55;color:var(--muted);margin:28px 0 0}
 .finder-results{min-width:0;align-self:start}
-.finder-results h2{font-size:clamp(3.6rem,5vw,6rem);line-height:.91;margin:0 0 16px}
+.finder-results h2{margin:0 0 16px}
 .finder-results>p:not(.finder-step){font-size:16px;color:var(--muted);max-width:40ch;margin:0 0 34px}
 .finder-result-list{border-top:1px solid #8ba2ab;margin-bottom:36px}
 .finder-result{display:grid;grid-template-columns:38px 1fr minmax(110px,.45fr) 100px;gap:15px;align-items:center;min-height:110px;border-bottom:1px solid var(--line);transition:background .2s,padding-left .2s}
 .finder-result:hover,.finder-result:focus-visible{background:#e5eef2;padding-left:9px}
-.finder-result span{font:400 11px PlexMono,monospace;color:#627984}
-.finder-result strong{font:700 clamp(1.7rem,2.4vw,2.6rem)/.95 BarlowCondensed,'Arial Narrow',sans-serif;text-transform:uppercase}
+.finder-result span{font:400 11px var(--font-family-primary);color:#627984}
+.finder-result strong{font:700 clamp(1.7rem,2.4vw,2.6rem)/.95 var(--font-family-primary);text-transform:uppercase}
 .finder-result img{display:block;width:100px;height:77px;object-fit:cover}
 
 .compare-section{background:#f3f4f1}
 .comparison-topline{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,.7fr);gap:35px;align-items:end;margin-bottom:47px}
-.comparison-topline h2{font-size:clamp(3.8rem,5.5vw,6rem);margin:0}
+.comparison-topline h2{margin:0}
 .comparison-topline p{max-width:37ch;margin:0;color:var(--muted);font-size:16px}
 .comparison-pickers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:15px}
-.comparison-pickers label{font:400 11px PlexMono,monospace;color:var(--accent-dark)}
-.comparison-pickers select{font:600 16px Manrope,Arial,sans-serif;color:var(--ink);margin-top:9px}
+.comparison-pickers label{font:400 11px var(--font-family-primary);color:var(--accent-dark)}
+.comparison-pickers select{font:600 16px var(--font-family-primary);color:var(--ink);margin-top:9px}
 .comparison-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .comparison-card{min-width:0;background:#fff;border:1px solid var(--line)}
 .comparison-photo{aspect-ratio:4/3;background:#dbe4e7;overflow:hidden}
@@ -100,7 +99,7 @@
 .comparison-card:hover .comparison-photo img{transform:scale(1.025)}
 .comparison-body{padding:26px 27px 30px}
 .comparison-body .folio-kicker{font-size:10px;margin:0 0 14px}
-.comparison-body h2{font-size:clamp(2.3rem,3vw,3.7rem);line-height:.92;margin:0 0 17px}
+.comparison-body h2{margin:0 0 17px}
 .comparison-intro{min-height:78px;color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 23px}
 .comparison-body dl{margin:0 0 28px;border-top:1px solid var(--line)}
 .comparison-body dl>div{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -112,12 +111,12 @@
 
 .service-paths{background:#fff}
 .service-paths-heading{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:end;margin-bottom:60px}
-.service-paths-heading h2{font-size:clamp(4rem,6vw,7.2rem);margin:0}
+.service-paths-heading h2{margin:0}
 .service-paths-heading p{font-size:16px;color:var(--muted);max-width:38ch;margin:0}
 .service-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 55px}
 .service-path{display:flex;flex-direction:column;min-height:260px;padding:30px 0 31px;border-top:1px solid #8ba2ab}
-.service-number,.service-path>div span{font:400 11px PlexMono,monospace;color:var(--accent-dark)}
-.service-path h3{font:700 clamp(2.8rem,3.7vw,4.5rem)/.94 BarlowCondensed,'Arial Narrow',sans-serif;text-transform:uppercase;margin:14px 0 14px}
+.service-number,.service-path>div span{font:400 11px var(--font-family-primary);color:var(--accent-dark)}
+.service-path h3{margin:14px 0 14px}
 .service-path>p{font-size:15px;color:var(--muted);line-height:1.5;max-width:40ch;margin:0 0 25px}
 .service-path>div{display:grid;gap:7px;margin-top:auto;margin-bottom:18px}
 .service-path>div strong{font-size:13px;font-weight:600}
@@ -128,16 +127,16 @@
 .about-work{background:#ecf1f2}
 .about-work-heading{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(240px,.75fr);gap:22px 55px;align-items:end;margin-bottom:50px}
 .about-work-heading .folio-kicker{grid-column:1/-1;margin:0}
-.about-work-heading h2{font-size:clamp(4.2rem,6.5vw,7.2rem);line-height:.88;margin:0}
+.about-work-heading h2{margin:0}
 .about-work-heading>p:last-child{max-width:42ch;color:var(--muted);font-size:16px;line-height:1.55;margin:0}
 .about-work-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(280px,.88fr);gap:clamp(35px,6vw,85px);align-items:start}
 .about-work-grid figure{margin:0;background:#d7e4e8}
 .about-work-grid img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
-.about-work-grid figcaption{padding:14px 0;font:400 11px PlexMono,monospace;color:var(--accent-dark);letter-spacing:.07em}
+.about-work-grid figcaption{padding:14px 0;font:400 11px var(--font-family-primary);color:var(--accent-dark);letter-spacing:.07em}
 .about-work-steps{border-top:1px solid #8ba2ab}
 .about-work-steps>div{display:grid;grid-template-columns:48px 1fr;gap:0 14px;padding:23px 0 28px;border-bottom:1px solid #b6c8cd}
-.about-work-steps>div>span{grid-row:1/3;font:400 11px PlexMono,monospace;color:var(--accent-dark);padding-top:9px}
-.about-work-steps h3{font:700 clamp(2.2rem,3.3vw,3.8rem)/.95 BarlowCondensed,'Arial Narrow',sans-serif;text-transform:uppercase;margin:0 0 8px}
+.about-work-steps>div>span{grid-row:1/3;font:400 11px var(--font-family-primary);color:var(--accent-dark);padding-top:9px}
+.about-work-steps h3{margin:0 0 8px}
 .about-work-steps p{max-width:36ch;color:var(--muted);font-size:14px;line-height:1.55;margin:0}
 .about-work-steps .text-link{display:inline-flex;margin-top:25px}
 
@@ -187,28 +186,21 @@
   .inventory-tools{flex-direction:column;align-items:flex-start;gap:5px;margin-top:35px}
   .tool-hero{padding:75px 0 70px}
   .tool-hero .folio-kicker{margin-bottom:35px}
-  .tool-hero h1{font-size:clamp(4.2rem,15vw,6.3rem);line-height:.87}
   .tool-hero p:last-child{font-size:15px}
-  .product-detail .product-hero h1{font-size:clamp(3.4rem,12vw,5.2rem)}
   .product-detail .product-hero .breadcrumbs{margin-bottom:43px}
   .product-hero-actions{gap:15px}
   .product-hero-actions .text-link{align-self:flex-start}
-  .explorer-heading h2{font-size:clamp(3.7rem,13vw,5rem)}
   .explorer-point{display:none}
   .explorer-content{padding:20px 18px 29px}
   .explorer-choice{padding:15px 0}
   .explorer-info{min-height:0;padding:27px 0 25px}
   .finder-controls{padding:22px}
-  .finder-results h2{font-size:clamp(3.4rem,12vw,4.6rem)}
   .finder-result strong{font-size:1.7rem}
   .finder-result{grid-template-columns:25px 1fr 72px;gap:8px;min-height:90px}.finder-result img{width:72px;height:56px}
-  .comparison-topline h2{font-size:clamp(3.3rem,12vw,4.7rem)}
   .comparison-pickers{grid-template-columns:1fr;gap:13px}
   .comparison-card{flex-basis:85vw}
-  .service-paths-heading h2{font-size:clamp(3.6rem,12vw,5rem)}
   .service-path-grid{grid-template-columns:1fr}
   .service-path{min-height:0;padding:24px 0 27px}
-  .about-work-heading h2{font-size:clamp(3.8rem,13vw,5.2rem)}
 }
 @media(prefers-reduced-motion:reduce){
   .explorer-point,.explorer-choice,.finder-option span,.finder-result,.comparison-photo img,.service-path>a,.inventory-tools a,.hero-guide-link{transition:none}
