@@ -2,6 +2,22 @@
 .language-switcher{display:flex;align-items:center;gap:7px;flex:none;color:var(--deep);order:3}
 .language-switcher svg{width:17px;height:17px;flex:none}
 .language-switcher select{width:98px;min-height:40px;padding:7px 20px 7px 7px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--deep);font:700 12px var(--font-body);cursor:pointer}
+.language-switcher-enhanced{position:relative;z-index:5}
+.language-switcher select[hidden]{display:none}
+.language-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;width:122px;min-height:40px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--deep);font:700 12px/1.4 var(--font-body);cursor:pointer;transition:background .18s ease,border-color .18s ease,box-shadow .18s ease}
+.language-trigger:hover,.language-switcher.is-open .language-trigger{background:#f2f7fb;border-color:#83b5d3;box-shadow:0 2px 8px #0046700a}
+.language-current{flex:1;text-align:left}
+.language-chevron{width:6px;height:6px;flex:none;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .22s ease}
+.is-open .language-chevron{transform:translateY(2px) rotate(225deg)}
+.language-menu{position:absolute;top:calc(100% + 10px);right:0;width:172px;max-width:calc(100vw - 36px);padding:6px;border:1px solid #d7e5ef;border-radius:12px;background:#fff;box-shadow:0 12px 32px #0046701c,0 2px 6px #00467008;opacity:0;visibility:hidden;transform:translateY(-6px);pointer-events:none;transition:opacity .18s ease,transform .22s cubic-bezier(.2,.8,.2,1),visibility 0s linear .22s}
+.is-open .language-menu{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto;transition-delay:0s}
+.language-option{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:42px;padding:10px 12px;border:0;border-radius:7px;background:transparent;color:var(--deep);font:500 14px/1.4 var(--font-body);text-align:left;cursor:pointer;transition:background .16s ease,color .16s ease}
+.language-option[aria-checked="true"]{background:#eaf3f9;font-weight:700}
+.language-option:hover,.language-option:focus{background:#f0f6fa}
+body .language-option:focus-visible{outline:2px solid var(--brand-orange);outline-offset:-2px}
+.language-check{color:#006aa6;opacity:0;margin-left:16px}
+.language-option[aria-checked="true"] .language-check{opacity:1}
+@media(prefers-reduced-motion:reduce){.language-trigger,.language-chevron,.language-menu,.language-option{transition:none}}
 .site-header .header-inner{gap:20px}
 .site-header .brand{min-width:0}
 .site-header .site-nav{gap:clamp(13px,1.6vw,24px)}
@@ -31,6 +47,7 @@ html:not([lang="en"]) .showcase-action{max-width:90%;white-space:normal;line-hei
  .site-header .menu-toggle{grid-column:2;grid-row:1;order:initial}
  .site-header .language-switcher{grid-column:1/-1;grid-row:2;margin-left:0;justify-self:end;gap:6px}
  .language-switcher select{min-height:32px;padding:4px 20px 4px 7px}
+ .language-trigger{min-height:32px;padding-block:5px}
  .site-header .brand-seal{flex:none}
  html:not([lang="en"]) .studio-hero h1{font-size:clamp(1.8rem,8vw,2.7rem)}
  html:not([lang="en"]) .anniversary-copy b{font-size:16px}

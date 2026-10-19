@@ -4,6 +4,8 @@
   const dictionaries = window.FLUIDTECH_TRANSLATIONS || {};
   const supported = ['en', 'de', 'es', 'fr'];
   const storageKey = 'fluidtech-language';
+  const languageNames = { en: 'English', de: 'Deutsch', es: 'Español', fr: 'Français' };
+  const languageControls = [];
   let language = 'en';
   let stored;
   try { stored = localStorage.getItem(storageKey); } catch (_) { /* Storage is optional. */ }
@@ -87,6 +89,7 @@
     try { localStorage.setItem(storageKey, language); } catch (_) { /* Keep this page functional without storage. */ }
     document.querySelectorAll('[data-language-select]').forEach(select => { select.value = language; });
     translateTree();
+    languageControls.forEach(update => update());
     // A selected language is shareable, and survives reload even when storage is blocked.
     if (announce || requested) {
       const url = new URL(location.href);
@@ -95,10 +98,124 @@
     }
     observer?.observe(document.documentElement, observerOptions);
     document.dispatchEvent(new CustomEvent('fluidtech:languagechange', { detail: { language } }));
-    if (announce) notify.textContent = t('Page language updated') + ': ' + { en: 'English', de: 'Deutsch', es: 'Español', fr: 'Français' }[language];
+    if (announce) notify.textContent = t('Page language updated') + ': ' + languageNames[language];
+  }
+  // Fade only page content; keep the header and language control steady.
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let transitionId = 0;
+  let animations = [];
+  async function changeLanguage(next) {
+    if (!supported.includes(next)) return;
+    const id = ++transitionId;
+    animations.forEach(animation => animation.cancel());
+    animations = [];
+    const regions = [...document.querySelectorAll('main, .site-footer')];
+    const main = document.querySelector('main');
+    if (next === language || reducedMotion.matches || !Element.prototype.animate) {
+      apply(next, true);
+      main?.removeAttribute('aria-busy');
+      return;
+    }
+    main?.setAttribute('aria-busy', 'true');
+    try {
+      animations = regions.map(region => region.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, easing: 'ease-out', fill: 'forwards' }));
+      await Promise.all(animations.map(animation => animation.finished));
+      if (id !== transitionId) return;
+      apply(next, true);
+      animations.forEach(animation => animation.cancel());
+      animations = regions.map(region => region.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: 'ease-out', fill: 'forwards' }));
+      await Promise.all(animations.map(animation => animation.finished));
+    } catch (_) { /* A newer selection cancels the previous transition. */ }
+    finally {
+      if (id === transitionId) {
+        animations.forEach(animation => animation.cancel());
+        animations = [];
+        main?.removeAttribute('aria-busy');
+      }
+    }
   }
   window.FluidtechI18n = { t, get language() { return language; } };
-  document.querySelectorAll('[data-language-select]').forEach(select => { select.disabled = false; select.addEventListener('change', () => apply(select.value, true)); });
+  document.querySelectorAll('[data-language-select]').forEach((select, index) => {
+    select.disabled = false;
+    select.addEventListener('change', () => changeLanguage(select.value));
+    // Enhance the native fallback with a consistent, animated menu on every device.
+    const wrapper = document.createElement('div');
+    wrapper.className = 'language-switcher language-switcher-enhanced';
+    wrapper.setAttribute('data-no-translate', '');
+    const globe = select.parentElement.querySelector('svg').cloneNode(true);
+    const trigger = document.createElement('button');
+    trigger.type = 'button'; trigger.className = 'language-trigger';
+    trigger.id = 'language-trigger-' + index;
+    trigger.setAttribute('aria-haspopup', 'menu');
+    trigger.setAttribute('aria-expanded', 'false');
+    const label = document.createElement('span');
+    label.className = 'language-current';
+    const chevron = document.createElement('span');
+    chevron.className = 'language-chevron'; chevron.setAttribute('aria-hidden', 'true');
+    trigger.append(globe, label, chevron);
+    const menu = document.createElement('div');
+    menu.className = 'language-menu'; menu.id = 'language-menu-' + index;
+    menu.setAttribute('role', 'menu'); menu.setAttribute('aria-labelledby', trigger.id);
+    menu.inert = true;
+    trigger.setAttribute('aria-controls', menu.id);
+    const options = supported.map(code => {
+      const option = document.createElement('button');
+      option.type = 'button'; option.className = 'language-option'; option.tabIndex = -1;
+      option.setAttribute('role', 'menuitemradio'); option.lang = code;
+      option.dataset.language = code;
+      const name = document.createElement('span'); name.textContent = languageNames[code];
+      const check = document.createElement('span'); check.className = 'language-check';
+      check.textContent = '✓'; check.setAttribute('aria-hidden', 'true');
+      option.append(name, check);
+      option.addEventListener('click', () => { close(true); changeLanguage(code); });
+      menu.append(option);
+      return option;
+    });
+    function update() {
+      label.textContent = languageNames[language]; label.lang = language;
+      trigger.setAttribute('aria-label', t('Choose language') + ': ' + languageNames[language]);
+      options.forEach(option => option.setAttribute('aria-checked', String(option.dataset.language === language)));
+    }
+    function open(at = supported.indexOf(language)) {
+      menu.inert = false;
+      wrapper.classList.add('is-open'); trigger.setAttribute('aria-expanded', 'true');
+      options[at].focus({ preventScroll: true });
+    }
+    function close(returnFocus = false) {
+      if (returnFocus) trigger.focus({ preventScroll: true });
+      wrapper.classList.remove('is-open'); trigger.setAttribute('aria-expanded', 'false');
+      menu.inert = true;
+    }
+    trigger.addEventListener('click', () => wrapper.classList.contains('is-open') ? close() : open());
+    trigger.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault(); open(event.key === 'ArrowDown' ? 0 : options.length - 1);
+      }
+    });
+    wrapper.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && wrapper.classList.contains('is-open')) {
+        event.preventDefault(); event.stopPropagation(); close(true);
+      }
+    });
+    menu.addEventListener('keydown', event => {
+      const active = options.indexOf(document.activeElement);
+      let next = -1;
+      if (event.key === 'ArrowDown') next = (active + 1) % options.length;
+      if (event.key === 'ArrowUp') next = (active - 1 + options.length) % options.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = options.length - 1;
+      if (event.key.length === 1 && /[a-z]/i.test(event.key)) next = options.findIndex(option => option.textContent.toLowerCase().startsWith(event.key.toLowerCase()));
+      if (next !== -1) { event.preventDefault(); options[next].focus(); }
+      if (event.key === 'Tab') { trigger.focus(); close(); }
+    });
+    document.addEventListener('pointerdown', event => { if (!wrapper.contains(event.target)) close(); });
+    wrapper.addEventListener('focusout', event => { if (!wrapper.contains(event.relatedTarget)) close(); });
+    const original = select.parentElement;
+    select.hidden = true;
+    wrapper.append(trigger, menu, select);
+    original.replaceWith(wrapper);
+    languageControls.push(update);
+  });
   observer = new MutationObserver(records => {
     observer.disconnect();
     const roots = new Set();
