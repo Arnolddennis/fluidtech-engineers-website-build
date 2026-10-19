@@ -60,7 +60,7 @@
 
   const form = document.getElementById('inquiry-form');
   const reason = form?.elements.namedItem('reason');
-  const contact = form?.elements.namedItem('contact');
+  const contact = form?.elements.namedItem('email');
   const updateReason = () => {
     if (!reason) return;
     reason.style.height = 'auto';
@@ -71,10 +71,7 @@
     if (!contact) return;
     const value = contact.value.trim();
     const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    const digits = value.replace(/\D/g, '');
-    const phone = /^\+?[\d\s().-]+$/.test(value) && digits.length >= 7 && digits.length <= 15;
-    contact.setCustomValidity(value && !email && !phone ? t('Please enter an email address or a phone number.') : '');
-    document.getElementById('contact-hint').textContent = email ? 'Email address' : phone ? 'Phone number' : 'Email or phone number';
+    contact.setCustomValidity(value && !email ? t('Please enter a valid email address.') : '');
   };
   document.addEventListener('fluidtech:languagechange', () => {
     updateContact();
@@ -96,6 +93,15 @@
   });
   if (form) {
     const params = new URLSearchParams(location.search);
+    const status = document.getElementById('form-status');
+    const submitButton = form.querySelector('button[type="submit"]');
+    let submitting = false;
+    if (params.get('submitted') === '1') {
+      status.textContent = 'Thank you. Your enquiry has been submitted. Please check your inbox and spam folder for the acknowledgement.';
+      const cleanUrl = new URL(location.href);
+      cleanUrl.searchParams.delete('submitted');
+      history.replaceState(null, '', cleanUrl);
+    }
     const subject = params.get('product') || params.get('service');
     const industry = params.get('industry');
     if (!reason.value.trim()) {
@@ -105,15 +111,34 @@
     updateReason();
     updateContact();
     form.addEventListener('submit', event => {
-      event.preventDefault();
+      if (submitting) { event.preventDefault(); return; }
       updateContact();
       const name = form.elements.namedItem('name');
       name.setCustomValidity(name.value.trim() ? '' : t('Please enter your name.'));
       reason.setCustomValidity(reason.value.trim() ? '' : t('Please tell us the reason for your enquiry.'));
-      if (!form.reportValidity()) return;
-      const body = ['Name: ' + name.value.trim(), 'Contact: ' + contact.value.trim(), '', 'Reason for enquiry:', reason.value.trim()].join('\n');
-      location.href = 'mailto:fluidtechindia@gmail.com?subject=' + encodeURIComponent('Fluidtech enquiry — ' + name.value.trim()) + '&body=' + encodeURIComponent(body);
-      document.getElementById('form-status').textContent = 'Your email draft is ready to open. Review and send it in your email app. If it does not open, email fluidtechindia@gmail.com.';
+      if (!form.reportValidity()) { event.preventDefault(); return; }
+      name.value = name.value.trim(); contact.value = contact.value.trim(); reason.value = reason.value.trim();
+      const next = new URL('/contact-us/', location.origin);
+      next.searchParams.set('submitted', '1');
+      const language = window.FluidtechI18n?.language || 'en';
+      if (language !== 'en') next.searchParams.set('lang', language);
+      next.hash = 'inquiry-form';
+      form.elements.namedItem('_next').value = next.href;
+      form.elements.namedItem('_autoresponse').value = t('Thank you for contacting Fluidtech Engineers India Private Limited. We have received your enquiry. Our team will review your requirements and reply to you. For urgent enquiries, email fluidtechindia@gmail.com or WhatsApp +91 75400 40091.');
+      form.elements.namedItem('page').value = location.origin + location.pathname;
+      form.elements.namedItem('language').value = language;
+      submitting = true;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending…';
+      status.textContent = 'Complete the spam check on the next screen to send your enquiry.';
+      // Use a normal POST: FormSubmit customer acknowledgements require its spam check
+      // and are not supported by AJAX submissions. Never report delivery before its return.
+    });
+    window.addEventListener('pageshow', () => {
+      submitting = false;
+      submitButton.disabled = false;
+      submitButton.textContent = 'Send enquiry ↗';
+      if (!params.has('submitted')) status.textContent = '';
     });
     form.addEventListener('input', event => {
       if (event.target === reason || event.target.name === 'name') event.target.setCustomValidity('');
