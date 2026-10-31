@@ -104,3 +104,40 @@ body .site-footer {
 @media (max-width: 600px) {
   body .inner-hero::after { opacity: .55; }
 }
+
+/* Catalogue refinement: shared spacing, technical readability and quiet motion. */
+:root{--motion-fast:180ms;--motion-standard:240ms;--motion-ease:cubic-bezier(.2,.7,.2,1)}
+body :is(.button,.text-link,.showcase-item,.product-card){transition:background-color var(--motion-fast) ease,border-color var(--motion-fast) ease,box-shadow var(--motion-fast) ease,color var(--motion-fast) ease}
+body :is(.product-hero,.inner-hero) h1{overflow-wrap:break-word;text-wrap:balance}
+body :is(.model-table,.technical-table) :is(th,td){font-variant-numeric:tabular-nums;line-height:1.5}
+body .datasheet-link{display:inline-flex;align-items:center;min-height:44px;line-height:1.5;font-size:13px}
+body .comparison-grid{gap:24px;align-items:stretch;margin-top:24px}
+body .comparison-panel{min-width:0;padding:24px;border:1px solid var(--surface-border);background:#fff;box-shadow:var(--surface-shadow)}
+body .comparison-panel>label{display:block;font-size:13px;font-weight:700;color:var(--deep);margin-bottom:16px}
+body .comparison-panel select{width:100%;min-height:46px;margin-top:7px;padding:10px 36px 10px 12px;border:1px solid var(--surface-border);background:#f7fafc;color:var(--deep);font:inherit;border-radius:4px}
+body .comparison-panel select:disabled{opacity:.75}
+body [data-compare-view]>img{display:block;width:100%;height:250px;object-fit:contain;background:#f7f9fb;margin:12px 0 20px;mix-blend-mode:multiply}
+body [data-compare-view]>h3{font-size:clamp(20px,2vw,28px);line-height:1.25;margin:0 0 10px}
+body [data-compare-view]>p{font-size:15px;line-height:1.65;min-height:5em}
+body .comparison-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:18px}
+body .comparison-links .text-link{font-size:12px;min-height:44px;display:inline-flex;align-items:center}
+body .comparison-toolbar{display:flex;gap:18px 28px;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:24px 0}
+body .difference-control{display:flex;gap:10px;align-items:center;color:var(--deep);font-size:14px;min-height:44px;cursor:pointer}
+body .difference-control input{width:19px;height:19px;accent-color:#004670}
+body .comparison-toolbar button{background:transparent;cursor:pointer;font:inherit;font-size:13px;min-height:44px}
+body .comparison-share{width:100%;padding:14px;margin-bottom:16px;border:1px solid var(--surface-border);font:inherit}
+body .comparison-table-wrap{overflow:auto;border:1px solid var(--surface-border);border-radius:4px}
+body [data-comparison-table]{border-collapse:collapse;width:100%;table-layout:fixed;min-width:560px;font-size:14px;font-variant-numeric:tabular-nums}
+body [data-comparison-table] caption{text-align:left;padding:18px 20px;background:#f4f8fb;color:var(--deep);font-weight:700}
+body [data-comparison-table] th,body [data-comparison-table] td{padding:17px 20px;text-align:left;vertical-align:top;border-bottom:1px solid var(--surface-border);overflow-wrap:anywhere;line-height:1.5}
+body [data-comparison-table] thead{background:#004670;color:white}
+body [data-comparison-table] thead th{color:white}
+body [data-comparison-table] tbody th{font-weight:600;color:var(--deep)}
+body [data-comparison-table] tr.is-different{background:#f1f7fc}
+body [data-comparison-table] tr:not(.is-different){background:white}
+body [data-comparison-table] tbody tr:last-child>*{border-bottom:0}
+body .comparison-table-wrap:focus-visible{outline:2px solid var(--brand-orange);outline-offset:4px}
+@media(max-width:700px){body .comparison-grid{grid-template-columns:1fr;gap:18px}body .comparison-panel{padding:18px}body [data-compare-view]>img{height:210px}body [data-compare-view]>p{min-height:0}body .comparison-toolbar{align-items:flex-start;flex-direction:column;gap:8px}body [data-comparison-table] :is(th,td){padding:12px}body .datasheet-link{max-width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}body :is(.button,.text-link,.showcase-item,.product-card){transition:none}body [data-showcase-image]{animation:none}}
+
+.comparison-status{min-height:1.6em;font-size:.875rem;color:var(--blue,#004670);margin:.5rem 0 1rem}

@@ -25,22 +25,5 @@
     document.querySelectorAll('[data-gallery-family]').forEach(card => { card.hidden = button.dataset.galleryFilter !== 'all' && card.dataset.galleryFamily !== button.dataset.galleryFilter; if (!card.hidden) count++; });
     document.querySelector('[data-gallery-count]').textContent = `${count} ${count === 1 ? 'machine' : 'machines'}`;
   }));
-  document.querySelectorAll('[data-compare-select]').forEach((select, index) => {
-    select.value = products[index].slug;
-    const update = () => {
-      const product = products.find(p => p.slug === select.value);
-      const view = select.closest('.comparison-panel').querySelector('[data-compare-view]');
-      view.replaceChildren();
-      const img = document.createElement('img'); img.src = product.image; img.alt = product.name; img.width = 1448; img.height = 1086;
-      const type = document.createElement('p'); type.className = 'studio-eyebrow'; type.textContent = product.category;
-      const title = document.createElement('h3'); title.textContent = product.name;
-      const intro = document.createElement('p'); intro.textContent = product.intro;
-      const specs = document.createElement('dl'); specs.className = 'technical-list';
-      const metrics = product.metrics.length ? product.metrics : [['Specifications', product.models ? 'View the model table on the product page' : 'Available on application review']];
-      metrics.forEach(([key, value]) => { const row = document.createElement('div'); const dt = document.createElement('dt'); dt.textContent = key; const dd = document.createElement('dd'); dd.textContent = value; row.append(dt,dd); specs.append(row); });
-      const link = document.createElement('a'); link.className = 'text-link'; link.href = product.url; link.textContent = 'View product details ↗';
-      view.append(img,type,title,intro,specs,link);
-    };
-    select.addEventListener('change', update); update();
-  });
+
 })();

@@ -1,0 +1,8 @@
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.FluidtechComparison=api;})(typeof window==='object'?window:globalThis,()=>{
+ const model=(p,m)=>p.models?.headers.slice(1).includes(m)?m:p.models?.headers[1]||'';
+ function selection(products,search){const q=new URLSearchParams(search);const left=products.find(p=>p.slug===q.get('left'))||products[0];const right=products.find(p=>p.slug===q.get('right')&&p!==left)||products.find(p=>p!==left);return {left,right,lm:model(left,q.get('lm')),rm:model(right,q.get('rm'))};}
+ function specs(p,m){return p.models?p.models.rows.map(row=>[row[0],row[p.models.headers.indexOf(model(p,m))]]):p.metrics;}
+ function rows(s){const a=new Map([['Process family',s.left.category],['Model',s.lm||'Application-specific'],...specs(s.left,s.lm)]);const b=new Map([['Process family',s.right.category],['Model',s.rm||'Application-specific'],...specs(s.right,s.rm)]);return [...new Set([...a.keys(),...b.keys()])].map(label=>{const values=[a.get(label)||'Not listed',b.get(label)||'Not listed'];return {label,values,different:values[0]!==values[1]};});}
+ function url(current,s,differences){const original=new URL(current);const u=new URL('/compare/',original.origin);for(const [key,value]of Object.entries({left:s.left.slug,right:s.right.slug,lm:s.lm,rm:s.rm}))if(value)u.searchParams.set(key,value);const lang=original.searchParams.get('lang');if(['de','es','fr'].includes(lang))u.searchParams.set('lang',lang);if(differences)u.searchParams.set('differences','1');return u.href;}
+ return {selection,rows,url};
+});

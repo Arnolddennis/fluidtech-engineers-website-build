@@ -42,8 +42,12 @@
     showcase.querySelector('[data-showcase-category]').textContent = item.category;
     showcase.querySelector('[data-showcase-link]').href = item.url;
     const image = showcase.querySelector('[data-showcase-image]');
-    image.src = (slug === 'horizontal-bead-mill' && image.dataset.beadMillImage) || item.image;
     image.alt = item.name;
+    window.FluidtechImages.apply(image, (slug === 'horizontal-bead-mill' && image.dataset.beadMillImage) || item.image);
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && image.animate) {
+      image.getAnimations().forEach(animation => animation.cancel());
+      image.animate([{opacity:.35},{opacity:1}], {duration:240,easing:'ease-out'});
+    }
     let enquiry = preview.querySelector('[data-product-enquiry]');
     if (!enquiry) {
       enquiry = document.createElement('button');

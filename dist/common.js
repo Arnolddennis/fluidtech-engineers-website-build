@@ -106,8 +106,10 @@
     const status = document.getElementById('form-status');
     const submitButton = form.querySelector('button[type="submit"]');
     let submitting = false;
-    if (params.get('submitted') === '1') {
-      status.textContent = 'Thank you. Your enquiry has been submitted. Please check your inbox and spam folder for the acknowledgement.';
+    let pending;
+    try { pending = sessionStorage.getItem('fluidtech-enquiry-pending'); sessionStorage.removeItem('fluidtech-enquiry-pending'); } catch (_) {}
+    if (window.FluidtechEnquiry.isReturn(location.search, pending, Date.now())) {
+      status.textContent = 'You have returned from the enquiry service. Please check your inbox and spam folder for an acknowledgement, or contact us directly if it does not arrive.';
       const cleanUrl = new URL(location.href);
       cleanUrl.searchParams.delete('submitted');
       history.replaceState(null, '', cleanUrl);
@@ -124,16 +126,13 @@
       if (submitting) { event.preventDefault(); return; }
       updateContact();
       const name = form.elements.namedItem('name');
-      name.setCustomValidity(name.value.trim() ? '' : t('Please enter your name.'));
-      reason.setCustomValidity(reason.value.trim() ? '' : t('Please tell us the reason for your enquiry.'));
-      if (!form.reportValidity()) { event.preventDefault(); return; }
-      name.value = name.value.trim(); contact.value = contact.value.trim(); reason.value = reason.value.trim();
-      const next = new URL('/contact-us/', location.origin);
-      next.searchParams.set('submitted', '1');
+      const checked = window.FluidtechEnquiry.validate({name:name.value,email:contact.value,reason:reason.value});
+      for (const [key, field] of Object.entries({name, email:contact, reason})) field.setCustomValidity(t(checked.errors[key] || ''));
+      if (!checked.valid || !form.reportValidity()) { event.preventDefault(); form.reportValidity(); return; }
+      name.value = checked.values.name; contact.value = checked.values.email; reason.value = checked.values.reason;
       const language = window.FluidtechI18n?.language || 'en';
-      if (language !== 'en') next.searchParams.set('lang', language);
-      next.hash = 'inquiry-form';
-      form.elements.namedItem('_next').value = next.href;
+      form.elements.namedItem('_next').value = window.FluidtechEnquiry.returnUrl(location.origin, language);
+      try { sessionStorage.setItem('fluidtech-enquiry-pending', String(Date.now())); } catch (_) {}
       form.elements.namedItem('_autoresponse').value = t('Thank you for contacting Fluidtech Engineers India Private Limited. We have received your enquiry. Our team will review your requirements and reply to you. For urgent enquiries, email fluidtechindia@gmail.com or WhatsApp +91 75400 40091.');
       form.elements.namedItem('page').value = location.origin + location.pathname;
       form.elements.namedItem('language').value = language;

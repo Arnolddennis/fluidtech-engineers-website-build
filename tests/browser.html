@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Fluidtech acceptance checks</title><style>body{font:16px/1.5 Arial;padding:20px}iframe{width:100%;height:600px;border:1px solid #ddd}pre{white-space:pre-wrap}</style><h1>Website acceptance checks</h1><pre id="results">Running…</pre><iframe title="Site under test"></iframe><script>
+(async()=>{
+ const out=document.querySelector('#results'),frame=document.querySelector('iframe'),lines=[];
+ const width=Number(new URLSearchParams(location.search).get('width'));if([390,820,1366].includes(width))frame.style.width=width+'px';
+ const assert=(v,m)=>{if(!v)throw Error(m);lines.push('PASS: '+m);out.textContent=lines.join('\n');};
+ const load=path=>new Promise(resolve=>{frame.onload=()=>resolve(frame.contentWindow);frame.src=path+(path.includes('?')?'&':'?')+'lang=en';});
+ const change=(w,selector,value)=>{const e=w.document.querySelector(selector);e.value=value;e.dispatchEvent(new w.Event('change',{bubbles:true}));};
+ try{
+ let w=await load('/compare/?left=three-roll-mill&right=basket-mill&lm=93&rm=500');let d=w.document;
+ assert(d.querySelector('[data-compare-model="0"]').value==='93','Shared comparison restores model');
+ assert(d.querySelector('[data-comparison-table]').textContent.includes('1,750'),'Model-specific weight displayed');
+ change(w,'[data-compare-model="0"]','150');
+ assert(d.querySelector('[data-comparison-table]').textContent.includes('3,000'),'Changing model updates specification values');
+ d.querySelector('#compare-differences').click();
+ assert(![...d.querySelectorAll('[data-comparison-table] tbody tr')].some(r=>r.textContent.includes('Process family')),'Differences filter removes identical rows');
+ assert(d.querySelector('[data-compare-enquiry]').href.includes('Three+Roll+Mill'),'Combined enquiry names selected products');
+ change(w,'[data-compare-select]','basket-mill');
+ assert(d.querySelectorAll('[data-compare-select]')[0].value!==d.querySelectorAll('[data-compare-select]')[1].value,'Duplicate machine selection prevented');
+ assert(d.querySelector('[data-compare-pdf]').getAttribute('href').endsWith('.pdf'),'Comparison exposes PDF datasheet');
+ w=await load('/contact-us/?submitted=1&product=Basket%20Mill');d=w.document;
+ assert(!d.querySelector('#form-status').textContent.includes('Thank you'),'Forged success URL does not claim delivery');
+ const f=d.querySelector('#inquiry-form');assert(f.elements.reason.value.includes('Basket Mill'),'Enquiry preserves selected product');
+ let allowed=false;f.addEventListener('submit',e=>{allowed=!e.defaultPrevented;e.preventDefault();});
+ f.elements.name.value=' ';f.elements.email.value='buyer@example.com';f.elements.reason.value='Need a mill';f.requestSubmit();assert(!allowed,'Whitespace-only enquiry rejected');
+ f.elements.name.value='Test buyer';f.elements.name.dispatchEvent(new w.Event('input',{bubbles:true}));f.requestSubmit();assert(allowed,'Valid enquiry reaches mocked transport');
+ assert(f.elements._autoresponse.value.includes('Fluidtech'),'Customer acknowledgement configured');
+ assert(f.querySelector('button[type=submit]').disabled,'Repeated submission disabled');allowed=false;f.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));assert(!allowed,'Duplicate submit blocked');
+ w=await load('/');d=w.document;
+ d.querySelector('[data-showcase-product="basket-mill"]').click();assert(d.querySelector('[data-showcase-image]').srcset.includes('basket-mill-studio'),'Dynamic basket image uses matching responsive variants');
+ assert(d.querySelector('.studio-hero img').getAttribute('fetchpriority')==='high','Banner image has loading priority');
+ assert(!d.querySelector('.client-ribbon-toggle'),'Removed Pause button stays removed');
+ assert(d.documentElement.scrollWidth<=w.innerWidth,'Homepage fits viewport');
+ w=await load('/tests/navigation.html');assert(w.document.querySelector('#results').dataset.result==='passed','Navigation regression checks');out.dataset.result='passed';lines.push('ALL BROWSER CHECKS PASSED');
+ }catch(e){out.dataset.result='failed';lines.push('FAIL: '+e.message);}out.textContent=lines.join('\n');
+})();</script></html>

@@ -18,11 +18,11 @@ Page content: `dist/**/index.html`. Shared navigation and form behaviour: `dist/
 
 Product specifications are transcribed from the supplied reference catalogue where provided. Confirm configuration, application suitability and final specifications with Fluidtech. No unconfirmed certification claims were added. The Basket Mill model table is retained; its conflicting summary metrics were omitted.
 
-The enquiry form prepares an email draft in the visitor's email application. The visitor reviews and sends the draft; this website does not send enquiries directly. Product, industry and service enquiry links prefill the relevant context.
+The enquiry form sends a normal POST to FormSubmit for delivery to fluidtechindia@gmail.com, with an automatic customer acknowledgement configured. Provider activation, spam checks and inbox receipt must be verified before launch; the 31 October delivery test timed out. A return URL does not prove delivery. Product, industry and service enquiry links prefill the relevant context.
 
-The homepage footer includes all 29 unique supplied client logos in a seamless scrolling strip, with pause/resume, hover pause and reduced-motion support. The Clients page displays the complete roster in a static responsive grid. Other inner pages do not include the carousel.
+The homepage footer includes all 29 unique supplied client logos in a seamless scrolling strip, with hover pause and reduced-motion support. The Clients page displays the complete roster in a static responsive grid. Other inner pages do not include the carousel.
 
-Contact forms now contain only Name, Contact (email or phone) and Reason, with validation, expanding reason text and automatic product/service context. The earlier client category tabs were removed; all client logos appear together in the Clients page grid and the homepage footer train.
+Contact forms now contain only Name, Contact (email address) and Reason, with validation, expanding reason text and automatic product/service context. The earlier client category tabs were removed; all client logos appear together in the Clients page grid and the homepage footer train.
 
 Client roster: `dist/assets/clients/roster.json` records the 29 original logo assets and source URLs. The 29 identified names are alphabetised (ignoring “The”). The scrolling strip is exclusive to the homepage.
 
@@ -44,6 +44,18 @@ English is the primary language and the fallback without JavaScript. The header 
 
 Translations are local, with no third-party translation service or API key. Edit `dist/locales/de.json`, `es.json` and `fr.json`; keys are the original English text. Then run `node scripts/build-translations.mjs` to rebuild `dist/translations.js`. New or changed English copy needs a corresponding entry in all three dictionaries; unknown text safely falls back to English. Keep model identifiers, measurements, client names, contact details and the legal company name unchanged. Text embedded in photographs and logos remains part of the original image.
 
-`dist/i18n.js` translates page text, titles, descriptions, accessible labels, placeholders and dynamically rendered equipment. User-entered form values are never translated or overwritten. The existing contact form still prepares an email draft for the visitor to send.
+`dist/i18n.js` translates page text, titles, descriptions, accessible labels, placeholders and dynamically rendered equipment. User-entered form values are never translated or overwritten. The form preserves the visitor’s selected language in its return URL and acknowledgement.
 
 Run `python3 scripts/check-translations.py` to check translation coverage and selector presence across the site. Keep `scripts/translation-preserved.json` limited to proper names and identifiers that intentionally remain unchanged. Browser checks cover dynamic product changes, translated search, comparison, URL persistence, English restoration, validation messages, unchanged enquiry input and responsive navigation.
+
+## Comparison, datasheets and image delivery
+
+The comparison page supports two distinct products, model selection, aligned specification rows, a differences filter, shareable links and an enquiry containing both selections. Missing values are marked “Not listed”. Datasheets are English PDFs generated from `dist/data.js`; incomplete specifications are explicitly identified. See `docs/technical-review.md` for unresolved engineering decisions.
+
+Run `python3 scripts/build-datasheets.py` with ReportLab and Pillow installed to regenerate the nine PDFs. The generator uses the macOS Arial fonts. Run `python3 scripts/optimize-images.py` with Pillow to regenerate responsive WebP assets and their manifest. Original supplied photographs remain available. Update the catalogue first, then regenerate derivatives.
+
+## Verification
+
+Run `node --test tests/*.test.cjs`, `python3 tests/assets_test.py` (Pillow and pypdf required) and `python3 scripts/check-translations.py`. For browser checks, run `python3 scripts/preview.py`, then visit `/tests/browser.html` and `/tests/navigation.html` at `http://127.0.0.1:5174`. Browser enquiry tests mock transport and do not send email. Test mobile, tablet and desktop widths.
+
+The library evaluation is in `docs/upgrade-plan.md`. This release retains the static architecture, native scrolling, CSS transitions and reduced-motion support. No React dependency or AI/API setup was added.
