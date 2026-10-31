@@ -16,6 +16,8 @@
   const groups = [...document.querySelectorAll('.nav-group')];
   const closeDropdowns = () => groups.forEach(group => {
     group.classList.remove('expanded');
+    // Override hover/focus-within until the visitor deliberately reopens the menu.
+    group.classList.add('escape-closed');
     group.querySelector('.nav-expand').setAttribute('aria-expanded', 'false');
   });
   const closeMenu = () => {
@@ -31,18 +33,26 @@
     menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     if (!open) closeDropdowns();
   });
-  groups.forEach(group => group.querySelector('.nav-expand').addEventListener('click', () => {
-    const open = !group.classList.contains('expanded');
-    closeDropdowns();
-    group.classList.toggle('expanded', open);
-    group.querySelector('.nav-expand').setAttribute('aria-expanded', String(open));
-  }));
+  groups.forEach(group => {
+    const reopen = () => group.classList.remove('escape-closed');
+    group.addEventListener('pointerenter', reopen);
+    group.addEventListener('focusin', event => {
+      if (!group.contains(event.relatedTarget)) reopen();
+    });
+    group.querySelector('.nav-expand').addEventListener('click', () => {
+      const open = !group.classList.contains('expanded');
+      closeDropdowns();
+      group.classList.toggle('expanded', open);
+      if (open) reopen();
+      group.querySelector('.nav-expand').setAttribute('aria-expanded', String(open));
+    });
+  });
   nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
   document.addEventListener('click', event => { if (!event.target.closest('.site-header')) closeMenu(); });
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       const open = menu.getAttribute('aria-expanded') === 'true';
-      const expanded = groups.find(group => group.classList.contains('expanded'));
+      const expanded = groups.find(group => group.contains(document.activeElement)) || groups.find(group => group.classList.contains('expanded'));
       closeMenu();
       if (open) menu.focus();
       else if (expanded) expanded.querySelector('.nav-expand').focus();

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Fluidtech navigation regression checks</title>
+<link rel="stylesheet" href="../dist/styles.css">
+<link rel="stylesheet" href="../dist/edition.css">
+<link rel="stylesheet" href="../dist/experience.css">
+<link rel="stylesheet" href="../dist/i18n.css">
+<style>.dropdown{transition:none!important}#results{margin:180px 24px 24px;white-space:pre-wrap;color:#123;background:#fff;font:16px monospace}</style>
+<header class="site-header">
+ <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+ <nav id="site-nav" class="site-nav">
+  <div class="nav-group">
+   <a href="#products">Products</a><button class="nav-expand" aria-expanded="false" aria-controls="products-dropdown">Expand</button>
+   <div id="products-dropdown" class="dropdown"><a href="#mill">Basket Mill</a></div>
+  </div>
+  <a id="outside" href="#about">About</a>
+ </nav>
+ <span class="scroll-progress"></span>
+</header>
+<pre id="results" role="status">Running…</pre>
+<script src="../dist/common.js"></script>
+<script>
+(() => {
+ const results = document.querySelector('#results');
+ const toggle = document.querySelector('.nav-expand');
+ const dropdown = document.querySelector('.dropdown');
+ const groupLink = document.querySelector('.nav-group>a');
+ const outside = document.querySelector('#outside');
+ const lines = [];
+ const assert = (condition, message) => { if (!condition) throw new Error(message); lines.push('PASS: ' + message); };
+ const shown = () => { const css = getComputedStyle(dropdown); return css.display !== 'none' && css.visibility !== 'hidden' && css.opacity !== '0'; };
+ const escape = element => element.dispatchEvent(new KeyboardEvent('keydown', {key:'Escape',bubbles:true}));
+ try {
+  if (innerWidth <= 1320) {
+   document.querySelector('.menu-toggle').click(); toggle.click();
+   assert(shown(), 'Tablet/mobile submenu opens');
+   toggle.click(); assert(!shown(), 'Tablet/mobile submenu closes');
+   toggle.click(); assert(shown(), 'Tablet/mobile submenu reopens');
+   escape(toggle);
+   assert(getComputedStyle(document.querySelector('#site-nav')).display === 'none', 'Escape closes mobile navigation');
+  } else {
+   toggle.focus(); toggle.click(); assert(shown(), 'Desktop submenu opens');
+   escape(toggle);
+   assert(!shown() && toggle.getAttribute('aria-expanded') === 'false', 'Escape visually closes a focused submenu');
+   assert(document.activeElement === toggle, 'Escape returns focus to the menu control');
+   toggle.click(); assert(shown(), 'Closed submenu can be explicitly reopened');
+   toggle.click(); assert(!shown(), 'Second click closes the submenu despite focus');
+   outside.focus(); groupLink.focus(); assert(shown(), 'Returning keyboard focus opens the submenu');
+   dropdown.querySelector('a').focus(); escape(dropdown.querySelector('a'));
+   assert(!shown() && document.activeElement === toggle, 'Escape from a focus-only submenu restores visible focus');
+  }
+  results.dataset.result = 'passed';
+ } catch (error) { lines.push('FAIL: ' + error.message); results.dataset.result = 'failed'; }
+ results.textContent = lines.join('\n');
+})();
+</script>
+</html>
